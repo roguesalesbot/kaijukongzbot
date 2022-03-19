@@ -9,6 +9,11 @@ const cache = require('./cache');
 function formatAndSendTweet(event) {
     // Handle both individual items + bundle sales
     const assetName = _.get(event, ['asset', 'name'], _.get(event, ['asset_bundle', 'name']));
+
+    if (assetName === null) {
+    	console.log("NULL EXCEPTION; FAILING.");
+	return;
+    }
     const openseaLink = _.get(event, ['asset', 'permalink'], _.get(event, ['asset_bundle', 'permalink']));
 
     const totalPrice = _.get(event, 'total_price');
