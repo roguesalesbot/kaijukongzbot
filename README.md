@@ -1,2 +1,3 @@
-# holycowsnft
-holycowsbot
+# KaijuKongz
+
+KaijuKongz Bot
