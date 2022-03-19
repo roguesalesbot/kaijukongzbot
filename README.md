@@ -1,2 +1,2 @@
-# kaijukongzbot
-kaijukongzbot
+# holycowsnft
+holycowsbot
