@@ -9,14 +9,9 @@ const cache = require('./cache');
 function formatAndSendTweet(event) {
     // Handle both individual items + bundle sales
     const assetName = _.get(event, ['asset', 'name'], _.get(event, ['asset_bundle', 'name']));
-
-    if (assetName === null) {
-    	console.log("NULL EXCEPTION; FAILING.");
-	return;
-    }
     const openseaLink = _.get(event, ['asset', 'permalink'], _.get(event, ['asset_bundle', 'permalink']));
 
-    const totalPrice = _.get(event, 'total_price');
+    const totalPrice = _.get(event, 'total_price'); 
 
     const tokenDecimals = _.get(event, ['payment_token', 'decimals']);
     const tokenUsdPrice = _.get(event, ['payment_token', 'usd_price']);
@@ -26,6 +21,10 @@ function formatAndSendTweet(event) {
     const formattedEthPrice = formattedUnits * tokenEthPrice;
     const formattedUsdPrice = formattedUnits * tokenUsdPrice;
 
+    console.log("MILADY");
+    console.log(formattedEthPrice);
+    console.log(formattedUsdPrice);
+    
     const tweetText = `${assetName} bought for ${formattedEthPrice}${ethers.constants.EtherSymbol} ($${Number(formattedUsdPrice).toFixed(2)}) #NFTs ${openseaLink}`;
 
     console.log(tweetText);
@@ -38,16 +37,16 @@ function formatAndSendTweet(event) {
 
     // OPTIONAL PREFERENCE - if you want the tweet to include an attached image instead of just text
 
-    //const imageUrl = _.get(event, ['asset', 'image_url']);
+    const imageUrl = _.get(event, ['asset', 'image_url']);
 
-    //return tweet.tweetWithImage(tweetText, imageUrl);
-    //noimage
-    return tweet.tweet(tweetText);
+    return tweet.tweetWithImage(tweetText, imageUrl);
+
+    //return tweet.tweet(tweetText);
 }
 
 // Poll OpenSea every 300 seconds & retrieve all sales for a given collection in either the time since the last sale OR in the last minute
 setInterval(() => {
-    const lastSaleTime = cache.get('lastSaleTime', null) || moment().startOf('minute').subtract(269, "seconds").unix();
+    const lastSaleTime = cache.get('lastSaleTime', null) || moment().startOf('minute').subtract(61, "seconds").unix();
 
     console.log(`Last sale (in seconds since Unix epoch): ${cache.get('lastSaleTime', null)}`);
 
@@ -82,4 +81,4 @@ setInterval(() => {
     }).catch((error) => {
         console.error(error);
     });    
-}, 300000);
+}, 60000);
