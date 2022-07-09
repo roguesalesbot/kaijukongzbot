@@ -21,7 +21,7 @@ function formatAndSendTweet(event) {
     const formattedEthPrice = formattedUnits * tokenEthPrice;
     const formattedUsdPrice = formattedUnits * tokenUsdPrice;
 
-    console.log("MILADY");
+    console.log("MILADYxBIRD");
     console.log(formattedEthPrice);
     console.log(formattedUsdPrice);
     
