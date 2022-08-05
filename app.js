@@ -7,25 +7,55 @@ const cache = require('./cache');
 
 // Format tweet text
 function formatAndSendTweet(event) {
+    
+    const fetchPrices = async () => {
+        try {
+              const response = await axios.get(
+                 'https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd'
+              );
+            //return response;
+              console.log(response.data);
+              return response.data;
+        } catch (error) {
+            console.log(error);
+        }
+    };
+    
+    console.log(fetchPrices);
+    
+    var dataJSON = JSON.parse(fetchPrices);
+    var bitcoinObject = dataJSON["ethereum"];
+    console.log(bitcoinObject);
+    var curr = Object.keys(bitcoinObject)[0];
+    console.log(curr); // usd
+    var ethprice = dataJSON["ethereum"][curr];
+    console.log("ethprice");
+    console.log(ethprice); // 7238.46
+
+    
     // Handle both individual items + bundle sales
+    
     const assetName = _.get(event, ['asset', 'name'], _.get(event, ['asset_bundle', 'name']));
     const openseaLink = _.get(event, ['asset', 'permalink'], _.get(event, ['asset_bundle', 'permalink']));
 
     const totalPrice = _.get(event, 'total_price'); 
+    //const totalPriceinUSD = totalPrice ;
 
     const tokenDecimals = _.get(event, ['payment_token', 'decimals']);
-    const tokenUsdPrice = _.get(event, ['payment_token', 'usd_price']);
+    //const tokenUsdPrice = _.get(event, ['payment_token', 'usd_price']);
     const tokenEthPrice = _.get(event, ['payment_token', 'eth_price']);
 
     const formattedUnits = ethers.utils.formatUnits(totalPrice, tokenDecimals);
     const formattedEthPrice = formattedUnits * tokenEthPrice;
-    const formattedUsdPrice = formattedUnits * tokenUsdPrice;
+    const formattedUSDPrice = formattedEthPrice * ethprice;
+    //const formattedUsdPrice = formattedUnits * tokenUsdPrice;
 
-    console.log("MILADYxAIKO");
+    console.log("formatted prices");
     console.log(formattedEthPrice);
-    console.log(formattedUsdPrice);
+    console.log(totalPriceinUSD);
     
-    const tweetText = `${assetName} bought for ${formattedEthPrice}${ethers.constants.EtherSymbol} ($${Number(formattedUsdPrice).toFixed(2)}) #NFTs ${openseaLink}`;
+    //const tweetText = `${assetName} bought for ${formattedEthPrice}${ethers.constants.EtherSymbol} ($${Number(formattedUsdPrice).toFixed(2)}) #NFTs ${openseaLink}`; // WITH USD
+    const tweetText = `${assetName} bought for ${formattedEthPrice}${ethers.constants.EtherSymbol} #NFTs ${openseaLink}`;
 
     console.log(tweetText);
 
