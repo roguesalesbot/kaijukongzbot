@@ -8,6 +8,32 @@ const cache = require('./cache');
 // Format tweet text
 function formatAndSendTweet(event) {
     
+    /*const axios = require('axios');
+
+    const fetchPrices = async () => {
+      const response = await axios.get(
+        'https://api.coingecko.com/api/v3/simple/price?ids=solana&vs_currencies=usd'
+      );
+      console.log(response.data);
+    };
+
+    fetchPrices();*/
+    
+    /*    
+    const fetchPrices = async () => {
+        try {
+              const response = await axios.get(
+                 'https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd'
+              );
+            //return response;
+              console.log(response.data);
+              return response.data;
+        } catch (error) {
+            console.log(error);
+        }
+    };
+    */
+    
     // Handle both individual items + bundle sales
     
     const assetName = _.get(event, ['asset', 'name'], _.get(event, ['asset_bundle', 'name']));
