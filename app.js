@@ -22,7 +22,7 @@ function formatAndSendTweet(event) {
     const formattedUsdPrice = formattedUnits * tokenUsdPrice;
     const realUsdPrice = formattedUsdPrice * 1.19773911251;
 
-    console.log("MILADY HACK");
+    console.log("MILADY HACK LOL");
     console.log(formattedEthPrice);
     console.log(formattedUsdPrice);
     console.log(realUsdPrice);
