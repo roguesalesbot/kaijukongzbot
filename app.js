@@ -23,11 +23,16 @@ function formatAndSendTweet(event) {
     const realUsdPrice = formattedUsdPrice * 1.10773911251;
 
     console.log("MILADY HACK LOL");
+    console.log(totalPrice);
+    console.log(tokenDecimals);
+    console.log(tokenUsdPrice);
+    console.log(tokenEthPrice);
     console.log(formattedEthPrice);
     console.log(formattedUsdPrice);
     console.log(realUsdPrice);
     
-    const tweetText = `${assetName} bought for ${formattedEthPrice}${ethers.constants.EtherSymbol} ($${Number(realUsdPrice).toFixed(2)}) #NFTs ${openseaLink}`;
+    //const tweetText = `${assetName} bought for ${formattedEthPrice}${ethers.constants.EtherSymbol} ($${Number(realUsdPrice).toFixed(2)}) #NFTs ${openseaLink}`;
+    const tweetText = `${assetName} was just purchased. #NFTs ${openseaLink}`;
 
     console.log(tweetText);
 
