@@ -20,7 +20,7 @@ function formatAndSendTweet(event) {
     const formattedUnits = ethers.utils.formatUnits(totalPrice, tokenDecimals);
     const formattedEthPrice = formattedUnits * tokenEthPrice;
     const formattedUsdPrice = formattedUnits * tokenUsdPrice;
-    const realUsdPrice = formattedUsdPrice * 1.19773911251;
+    const realUsdPrice = formattedUsdPrice * 1.10773911251;
 
     console.log("MILADY HACK LOL");
     console.log(formattedEthPrice);
